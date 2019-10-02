@@ -269,7 +269,7 @@ void MainWindow::onFileOpen()
 	QSettings settings;
 	QString filePath = QFileDialog::getOpenFileName(this,
 													tr("Open"), settings.value("default_dir", "").toString(),
-													tr("Papgayo and Audio files (*.pgo;*.wav;*.aif;*.aiff)"));
+                                                    tr("Papagayo and Audio files (*.pgo *.wav *.aif *.aiff)"));
 	if (filePath.isEmpty())
 		return;
 
@@ -313,7 +313,7 @@ void MainWindow::onFileSaveAs()
 	}
 	QString filePath = QFileDialog::getSaveFileName(this,
 													tr("Save"), name,
-													tr("Papgayo files (*.pgo)"));
+													tr("Papagayo files (*.pgo)"));
 	if (filePath.isEmpty())
 		return;
 

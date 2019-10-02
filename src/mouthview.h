@@ -11,7 +11,7 @@ class MouthView : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit MouthView(QWidget *parent = 0);
+    explicit MouthView(QWidget *parent = nullptr);
 	~MouthView();
 
 	void SetDocument(LipsyncDoc *doc);
