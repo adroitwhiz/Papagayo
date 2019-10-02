@@ -5,6 +5,8 @@
 
 #include "lipsyncdoc.h"
 
+#include <cstdint>
+
 class QListWidgetItem;
 
 namespace Ui {

@@ -4,6 +4,8 @@
 #include "pg_config.h"
 #include "sndfile.h"
 
+#include <cstdint>
+
 //
 // This class is the general audio extractor that wraps the library specific extractors.
 // Its main purpose is to extract audio tracks from audio and video media and place them
@@ -24,13 +26,13 @@ public:
 	real GetRMSAmplitude(real startTime, real duration) const;
 	real GetMaxAmplitude(real startTime, real duration) const;
 
-	uint32 NumSamples() const;
-	int32 SampleRate() const;
+	std::uint32_t NumSamples() const;
+	std::int32_t SampleRate() const;
 	real *Buffer() const;
-	uint32 TimeToSample(real time, bool clamped) const;
+	std::uint32_t TimeToSample(real time, bool clamped) const;
 
 	SF_INFO		fSndInfo;
-	uint32		fNumSamples;
+	std::uint32_t		fNumSamples;
 	sf_count_t	fNumFrames;
 	float		*fSamples;
 	

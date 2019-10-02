@@ -17,13 +17,13 @@ AudioExtractor::AudioExtractor(const char *path, bool reverse)
 	
 	if (soundRead && reverse)
 	{
-		int32	revI;
+		std::int32_t	revI;
 		float	temp;
 
-		for (int32 i = 0; i < fSndInfo.frames / 2; i++)
+		for (std::int32_t i = 0; i < fSndInfo.frames / 2; i++)
 		{
-			revI = (int32)fSndInfo.frames - 1 - i;
-			for (int32 j = 0; j < fSndInfo.channels; j++)
+            revI = static_cast<std::int32_t>(fSndInfo.frames) - 1 - i;
+			for (std::int32_t j = 0; j < fSndInfo.channels; j++)
 			{
 				temp = fSamples[i * fSndInfo.channels + j];
 				fSamples[i * fSndInfo.channels + j] = fSamples[revI * fSndInfo.channels + j];
@@ -59,7 +59,7 @@ real AudioExtractor::GetAmplitude(real startTime, real duration) const
 	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
-	uint32	i, start, end;
+	std::uint32_t	i, start, end;
 	real	sample, total = 0.0f;
 
 	start = TimeToSample(startTime, true);
@@ -82,7 +82,7 @@ real AudioExtractor::GetRMSAmplitude(real startTime, real duration) const
 	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
-	uint32	i, start, end;
+	std::uint32_t	i, start, end;
 	real	sample, total = 0.0f;
 
 	start = TimeToSample(startTime, true);
@@ -105,7 +105,7 @@ real AudioExtractor::GetMaxAmplitude(real startTime, real duration) const
 	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
-	uint32	i, start, end;
+	std::uint32_t	i, start, end;
 	real	sample, max = -PG_HUGE;
 
 	start = TimeToSample(startTime, true);
@@ -122,12 +122,12 @@ real AudioExtractor::GetMaxAmplitude(real startTime, real duration) const
 	return max;
 }
 
-uint32 AudioExtractor::NumSamples() const
+std::uint32_t AudioExtractor::NumSamples() const
 {
 	return fNumSamples;
 }
 
-int32 AudioExtractor::SampleRate() const
+std::int32_t AudioExtractor::SampleRate() const
 {
 	return fSndInfo.samplerate;
 }
@@ -137,14 +137,14 @@ real *AudioExtractor::Buffer() const
 	return fSamples;
 }
 
-uint32 AudioExtractor::TimeToSample(real time, bool clamped) const
+std::uint32_t AudioExtractor::TimeToSample(real time, bool clamped) const
 {
 	if (fSamples == nullptr)
 		return 0;
 
-	uint32	sample;
+	std::uint32_t	sample;
 
-	time = time * (real)(fSndInfo.samplerate * fSndInfo.channels);
+    time = time * static_cast<real>(fSndInfo.samplerate * fSndInfo.channels);
 	sample = PG_ROUND(time);
 	if (fSndInfo.channels)
 	{
@@ -165,7 +165,7 @@ bool AudioExtractor::ReadSoundFile(const char *soundFilePath)
 	
 	if (fSndInfo.frames > MAX_AUDIO_FRAMES)
 		fSndInfo.frames = MAX_AUDIO_FRAMES;
-	fNumSamples = (int32)(fSndInfo.frames * fSndInfo.channels);
+    fNumSamples = static_cast<std::uint32_t>(fSndInfo.frames * fSndInfo.channels);
 	fSamples = new float[fNumSamples];
 /*	if (sndFormat == (SF_FORMAT_OGG | SF_FORMAT_VORBIS))
 	{

@@ -11,7 +11,7 @@ MouthView::MouthView(QWidget *parent) :
 
 	LipsyncDoc::LoadDictionaries();
 
-	for (int32 mouth = 0; mouth < 4; mouth++)
+	for (std::int32_t mouth = 0; mouth < 4; mouth++)
 	{
 		QString		basePath;
 
@@ -31,7 +31,7 @@ MouthView::MouthView(QWidget *parent) :
 				break;
 		}
 
-		for (int32 i = 0; i < LipsyncDoc::Phonemes.size(); i++)
+		for (std::int32_t i = 0; i < LipsyncDoc::Phonemes.size(); i++)
 		{
 			fMouths[mouth].insert(LipsyncDoc::Phonemes[i], new QImage(basePath + LipsyncDoc::Phonemes[i] + ".jpg"));
 		}
@@ -48,7 +48,7 @@ void MouthView::SetDocument(LipsyncDoc *doc)
 	update();
 }
 
-void MouthView::SetMouth(int32 id)
+void MouthView::SetMouth(std::int32_t id)
 {
 	fMouthID = PG_CLAMP(id, 0, 3);
 }
@@ -83,9 +83,9 @@ void MouthView::paintEvent(QPaintEvent *event)
 	img = fMouths[fMouthID].value(phoneme);
 	if (img)
 	{
-		int32	x = 0, y = 0;
-		int32	w = width();
-		int32	h = height();
+		std::int32_t	x = 0, y = 0;
+		std::int32_t	w = width();
+		std::int32_t	h = height();
 		QColor	backCol(255, 255, 255);
 		if (w > h)
 		{

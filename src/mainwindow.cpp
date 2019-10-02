@@ -341,7 +341,7 @@ void MainWindow::onFpsChange(QString text)
 	if (!fDoc)
 		return;
 
-	int32 fps = text.toInt();
+	std::int32_t fps = text.toInt();
 	fps = PG_CLAMP(fps, 1, 120);
 
 	if (fps == fDoc->Fps())
@@ -373,7 +373,7 @@ void MainWindow::onNewVoice()
 
 void MainWindow::onDeleteVoice()
 {
-	if (!fDoc || fDoc->fVoices.size() < 2 || fDoc->fCurrentVoice == NULL)
+    if (!fDoc || fDoc->fVoices.size() < 2 || fDoc->fCurrentVoice == nullptr)
 		return;
 
 	int id = fDoc->fVoices.indexOf(fDoc->fCurrentVoice);
@@ -458,7 +458,7 @@ void MainWindow::onBreakdown()
 
 	LipsyncDoc::LoadDictionaries();
 	fDoc->fDirty = true;
-	int32 duration = fDoc->Fps() * 10;
+	std::int32_t duration = fDoc->Fps() * 10;
 	if (fDoc->GetAudioExtractor())
 	{
 		real f = fDoc->GetAudioExtractor()->Duration();

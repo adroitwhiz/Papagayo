@@ -42,7 +42,7 @@ WaveformView::~WaveformView()
 	if (fAmp)
 	{
 		delete [] fAmp;
-		fAmp = NULL;
+        fAmp = nullptr;
 	}
 }
 
@@ -93,7 +93,7 @@ void WaveformView::SetDocument(LipsyncDoc *doc)
 			fNumSamples = 1;
 		fAmp = new real[fNumSamples];
 		time = 0.0f;
-		int32 i = 0;
+		std::int32_t i = 0;
 		while (time < duration)
 		{
 			fAmp[i] = extractor->GetRMSAmplitude(time, sampleDur);
@@ -176,7 +176,7 @@ void WaveformView::positionChanged(qint64 milliseconds)
 	if (fDoc)
 	{
 		real f = ((real)milliseconds / 1000.0f) * fDoc->Fps();
-		int32 frame = PG_FLOOR(f);
+		std::int32_t frame = PG_FLOOR(f);
 		if (frame != fCurFrame)
 		{
 			if (fAudioStopFrame >= 0)
@@ -236,9 +236,9 @@ void WaveformView::positionChanged(qint64 milliseconds)
 
 void WaveformView::mousePressEvent(QMouseEvent *event)
 {
-	int32	mouseY = event->y();
+	std::int32_t	mouseY = event->y();
 	real	f = (real)event->x() / (real)fFrameWidth;
-	int32	frame = PG_FLOOR(f), frameDist;
+	std::int32_t	frame = PG_FLOOR(f), frameDist;
 
 	fScrubFrame = -1;
 	fCurFrame = -1;
@@ -256,7 +256,7 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 		if (fDoc->fCurrentVoice)
 		{ // test to see if the user clicked on a phrase, word, or phoneme
 			// first, find the phrase that was clicked on
-			for (int32 i = 0; i < fDoc->fCurrentVoice->fPhrases.size(); i++)
+			for (std::int32_t i = 0; i < fDoc->fCurrentVoice->fPhrases.size(); i++)
 			{
 				if (frame >= fDoc->fCurrentVoice->fPhrases[i]->fStartFrame && frame <= fDoc->fCurrentVoice->fPhrases[i]->fEndFrame)
 				{
@@ -267,7 +267,7 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			// next, find the word that was clicked on
 			if (fSelectedPhrase)
 			{
-				for (int32 i = 0; i < fSelectedPhrase->fWords.size(); i++)
+				for (std::int32_t i = 0; i < fSelectedPhrase->fWords.size(); i++)
 				{
 					if (frame >= fSelectedPhrase->fWords[i]->fStartFrame && frame <= fSelectedPhrase->fWords[i]->fEndFrame)
 					{
@@ -279,7 +279,7 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			// finally, find the phoneme that was clicked on
 			if (fSelectedWord)
 			{
-				for (int32 i = 0; i < fSelectedWord->fPhonemes.size(); i++)
+				for (std::int32_t i = 0; i < fSelectedWord->fPhonemes.size(); i++)
 				{
 					if (frame == fSelectedWord->fPhonemes[i]->fFrame)
 					{
@@ -352,7 +352,7 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			{
 				bool playSegment = false;
 				QMediaPlayer *audioPlayer = fDoc->GetAudioPlayer();
-				int32 startFrame;
+				std::int32_t startFrame;
 				fAudioStopFrame = -1;
 				if (audioPlayer)
 				{
@@ -406,7 +406,7 @@ void WaveformView::mouseMoveEvent(QMouseEvent *event)
 
 	bool	needUpdate = false;
 	real	f = (real)event->x() / (real)fFrameWidth;
-	int32	frame = PG_FLOOR(f);
+	std::int32_t	frame = PG_FLOOR(f);
 
 	if (fSelectedPhrase)
 	{
@@ -565,8 +565,8 @@ void WaveformView::paintEvent(QPaintEvent *event)
 
 	QPainter	dc(this);
 
-	int32		clientWidth = width();
-	int32		clientHeight = height();
+	std::int32_t		clientWidth = width();
+	std::int32_t		clientHeight = height();
 
 	if (fDoc == NULL)
 	{
@@ -574,14 +574,14 @@ void WaveformView::paintEvent(QPaintEvent *event)
 		return;
 	}
 
-	int32		topBorder = 16; // should be the height of frame label text
-	int32		halfClientHeight;
-	int32		sampleHeight, halfSampleHeight, textHeight;
-	int32		fps = fDoc->Fps();
-	int32		x = 0;
-	int32		frameX;
-	int32		sample = 0;
-	int32		frame = 0;
+	std::int32_t		topBorder = 16; // should be the height of frame label text
+	std::int32_t		halfClientHeight;
+	std::int32_t		sampleHeight, halfSampleHeight, textHeight;
+	std::int32_t		fps = fDoc->Fps();
+	std::int32_t		x = 0;
+	std::int32_t		frameX;
+	std::int32_t		sample = 0;
+	std::int32_t		frame = 0;
 	bool		drawPlayMarker = false;
 	QRect		r;
 	QColor		textCol(64, 64, 64);
@@ -613,7 +613,7 @@ void WaveformView::paintEvent(QPaintEvent *event)
 	}
 
 	x = 0;
-	for (int32 i = 0; i < fNumSamples; i++)
+	for (std::int32_t i = 0; i < fNumSamples; i++)
 	{
 		if (((sample + 1) % fSamplesPerFrame) == 0)
 		{
@@ -661,7 +661,7 @@ void WaveformView::paintEvent(QPaintEvent *event)
 	if (fDoc->fCurrentVoice)
 	{
 		topBorder += 4;
-		for (int32 p = 0; p < fDoc->fCurrentVoice->fPhrases.size(); p++)
+		for (std::int32_t p = 0; p < fDoc->fCurrentVoice->fPhrases.size(); p++)
 		{
 			LipsyncPhrase *phrase = fDoc->fCurrentVoice->fPhrases[p];
 			r = QRect(phrase->fStartFrame * fFrameWidth, topBorder, (phrase->fEndFrame - phrase->fStartFrame + 1) * fFrameWidth, textHeight);
@@ -676,7 +676,7 @@ void WaveformView::paintEvent(QPaintEvent *event)
 			dc.drawText(QPoint(r.left(), r.bottom() - 2), phrase->fText);
 			dc.setClipping(false);
 
-			for (int32 w = 0; w < phrase->fWords.size(); w++)
+			for (std::int32_t w = 0; w < phrase->fWords.size(); w++)
 			{
 				LipsyncWord *word = phrase->fWords[w];
 				r = QRect(word->fStartFrame * fFrameWidth, topBorder + 4 + textHeight, (word->fEndFrame - word->fStartFrame + 1) * fFrameWidth, textHeight);
@@ -701,7 +701,7 @@ void WaveformView::paintEvent(QPaintEvent *event)
 				dc.drawText(QPoint(r.left(), r.bottom() - 2), word->fText);
 				dc.setClipping(false);
 
-				for (int32 i = 0; i < word->fPhonemes.size(); i++)
+				for (std::int32_t i = 0; i < word->fPhonemes.size(); i++)
 				{
 					LipsyncPhoneme *phoneme = word->fPhonemes[i];
 					r = QRect(phoneme->fFrame * fFrameWidth, clientHeight - 4 - textHeight, fFrameWidth, textHeight);

@@ -78,18 +78,6 @@
 * sizes aren't correct.    *
 ***************************/
 
-/* integer types of specific sizes: */
-typedef char			int8;		/* 8 bits  */
-typedef short			int16;		/* 16 bits */
-typedef int				int32;		/* 32 bits */
-typedef long long		int64;		/* 64 bits */
-
-/* unsigned integer types of specific sizes: */
-typedef unsigned char	uint8;		/* 8 bits  */
-typedef unsigned short	uint16;		/* 16 bits */
-typedef unsigned int	uint32;		/* 32 bits */
-typedef unsigned long long uint64;	/* 64 bits */
-
 /* floating-point value: */
 typedef float			real;	/* most efficient floating-point type (may depend on platform and compiler) */
 
@@ -120,7 +108,7 @@ typedef float			real;	/* most efficient floating-point type (may depend on platf
 #define PG_UNUSED(a)		(void)((a))
 #define PG_ABS(a)			(((a) < 0) ? -(a) : (a))
 #define PG_FABS(a)			(((a) < 0.0f) ? -(a) : (a))
-#define PG_ROUND(a)			(((a) > 0) ? (int32)((a) + 0.5f) : -(int32)(0.5f - (a)))
+#define PG_ROUND(a)			(((a) > 0) ? (std::int32_t)((a) + 0.5f) : -(std::int32_t)(0.5f - (a)))
 /* take sign of a, either -1, 0, or 1 */
 #define PG_ZSGN(a)			(((a) < 0) ? -1 : ((a) > 0) ? 1 : 0)
 /* take binary sign of a, either -1, or 1 if >= 0 */
@@ -154,8 +142,8 @@ typedef float			real;	/* most efficient floating-point type (may depend on platf
 /* random number between -1 and 1 */
 #define PG_FRANDOMSGN()		(PG_FRANDOM() * 2.0f - 1.0f)
 /* floor and ceil macros (much faster than the math.h functions) */
-#define PG_FLOOR(x)			(((x) < 0.0f) ? ((int32)(x) - 1) : ((int32)(x)))
-#define PG_CEIL(x)			(((x) < 0.0f) ? ((int32)(x)) : ((int32)(x) + 1))
+#define PG_FLOOR(x)			(((x) < 0.0f) ? ((std::int32_t)(x) - 1) : ((std::int32_t)(x)))
+#define PG_CEIL(x)			(((x) < 0.0f) ? ((std::int32_t)(x)) : ((std::int32_t)(x) + 1))
 /* degree <--> radian conversions */
 #define PG_RAD(x)			((x) * PG_PI / 180.0f)
 #define PG_DEG(x)			((x) * 180.0f / PG_PI)

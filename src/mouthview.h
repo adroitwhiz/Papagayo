@@ -5,6 +5,8 @@
 
 #include "lipsyncdoc.h"
 
+#include <cstdint>
+
 class MouthView : public QWidget
 {
 	Q_OBJECT
@@ -13,7 +15,7 @@ public:
 	~MouthView();
 
 	void SetDocument(LipsyncDoc *doc);
-	void SetMouth(int32 id);
+	void SetMouth(std::int32_t id);
 
 signals:
 
@@ -26,8 +28,8 @@ protected:
 
 private:
 	LipsyncDoc					*fDoc;
-	int32						fMouthID;
-	int32						fFrame;
+	std::int32_t						fMouthID;
+	std::int32_t						fFrame;
 	QHash<QString, QImage *>	fMouths[4];
 };
 

@@ -5,6 +5,8 @@
 
 #include "audioextractor.h"
 
+#include <cstdint>
+
 class QFile;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,8 +18,8 @@ public:
 	~LipsyncPhoneme();
 
 	QString		fText;
-	int32		fFrame;
-	int32		fTop, fBottom;
+	std::int32_t		fFrame;
+	std::int32_t		fTop, fBottom;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,8 +34,8 @@ public:
 	void RepositionPhoneme(LipsyncPhoneme *phoneme);
 
 	QString					fText;
-	int32					fStartFrame, fEndFrame;
-	int32					fTop, fBottom;
+	std::int32_t					fStartFrame, fEndFrame;
+	std::int32_t					fTop, fBottom;
 	QList<LipsyncPhoneme *>	fPhonemes;
 };
 
@@ -49,8 +51,8 @@ public:
 	void RepositionWord(LipsyncWord *word);
 
 	QString					fText;
-	int32					fStartFrame, fEndFrame;
-	int32					fTop, fBottom;
+	std::int32_t					fStartFrame, fEndFrame;
+	std::int32_t					fTop, fBottom;
 	QList<LipsyncWord *>	fWords;
 };
 
@@ -65,9 +67,9 @@ public:
 	void Open(QTextStream &in);
 	void Save(QTextStream &out);
 	void Export(QString path);
-	void RunBreakdown(QString language, int32 audioDuration);
-	void RepositionPhrase(LipsyncPhrase *phrase, int32 audioDuration);
-	QString GetPhonemeAtFrame(int32 frame);
+	void RunBreakdown(QString language, std::int32_t audioDuration);
+	void RepositionPhrase(LipsyncPhrase *phrase, std::int32_t audioDuration);
+	QString GetPhonemeAtFrame(std::int32_t frame);
 
 	QString					fName;
 	QString					fText;
@@ -90,19 +92,19 @@ public:
 	void Save();
 	void RebuildAudioSamples();
 
-	int32 Fps() { return fFps; }
-	void SetFps(int32 fps);
+	std::int32_t Fps() { return fFps; }
+	void SetFps(std::int32_t fps);
 	QMediaPlayer *GetAudioPlayer();
 	AudioExtractor *GetAudioExtractor();
-	int32 Duration() { return fAudioDuration; }
-	QString GetVolumePhonemeAtFrame(int32 frame);
+	std::int32_t Duration() { return fAudioDuration; }
+	QString GetVolumePhonemeAtFrame(std::int32_t frame);
 
 private slots:
 
 private:
 	static void LoadDictionary(QFile *f);
 
-	int32					fFps, fAudioDuration;
+	std::int32_t					fFps, fAudioDuration;
 	QString					fAudioPath;
 	QMediaPlayer			*fAudioPlayer;
 	AudioExtractor			*fAudioExtractor;

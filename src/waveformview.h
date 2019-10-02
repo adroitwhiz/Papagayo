@@ -5,13 +5,15 @@
 
 #include "lipsyncdoc.h"
 
+#include <cstdint>
+
 class QScrollArea;
 
 class WaveformView : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit WaveformView(QWidget *parent = 0);
+    explicit WaveformView(QWidget *parent = nullptr);
 	~WaveformView();
 	QSize sizeHint() const;
 
@@ -37,21 +39,21 @@ protected:
 private:
 	QScrollArea	*fScrollArea;
 	LipsyncDoc	*fDoc;
-	int32		fNumSamples;
+	std::int32_t		fNumSamples;
 	real		*fAmp;
 	bool		fDragging, fDoubleClick;
-	int32		fDraggingEnd;
-	int32		fCurFrame;
-	int32		fOldFrame;
-	int32		fScrubFrame;
-	int32		fAudioStopFrame;
-	int32		fSampleWidth;
-	int32		fSamplesPerFrame;
-	int32		fSamplesPerSec;
-	int32		fFrameWidth;
-	int32		fPhraseBottom;
-	int32		fWordBottom;
-	int32		fPhonemeTop;
+	std::int32_t		fDraggingEnd;
+	std::int32_t		fCurFrame;
+	std::int32_t		fOldFrame;
+	std::int32_t		fScrubFrame;
+	std::int32_t		fAudioStopFrame;
+	std::int32_t		fSampleWidth;
+	std::int32_t		fSamplesPerFrame;
+	std::int32_t		fSamplesPerSec;
+	std::int32_t		fFrameWidth;
+	std::int32_t		fPhraseBottom;
+	std::int32_t		fWordBottom;
+	std::int32_t		fPhonemeTop;
 
 	LipsyncPhrase	*fSelectedPhrase, *fParentPhrase;
 	LipsyncWord		*fSelectedWord, *fParentWord;
