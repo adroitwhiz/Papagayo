@@ -51,7 +51,7 @@ real AudioExtractor::Duration() const
 	if (fSamples == nullptr)
 		return 0.0f;
 
-	return (real)fSndInfo.frames / (real)fSndInfo.samplerate;
+    return static_cast<real>(fSndInfo.frames) / static_cast<real>(fSndInfo.samplerate);
 }
 
 real AudioExtractor::GetAmplitude(real startTime, real duration) const
@@ -73,7 +73,7 @@ real AudioExtractor::GetAmplitude(real startTime, real duration) const
 			continue;
 		total += sample;
 	}
-	total = total / (real)(end - start);
+    total = total / static_cast<real>(end - start);
 	return total;
 }
 
@@ -96,8 +96,8 @@ real AudioExtractor::GetRMSAmplitude(real startTime, real duration) const
 			continue;
 		total += sample * sample;
 	}
-	total = total / (real)(end - start);
-	return (real)sqrt(total);
+    total = total / static_cast<real>(end - start);
+    return sqrt(total);
 }
 
 real AudioExtractor::GetMaxAmplitude(real startTime, real duration) const
@@ -142,10 +142,8 @@ std::uint32_t AudioExtractor::TimeToSample(real time, bool clamped) const
 	if (fSamples == nullptr)
 		return 0;
 
-	std::uint32_t	sample;
-
     time = time * static_cast<real>(fSndInfo.samplerate * fSndInfo.channels);
-	sample = PG_ROUND(time);
+    std::uint32_t	sample = static_cast<std::uint32_t>(time + 0.5f);
 	if (fSndInfo.channels)
 	{
 		while (sample % fSndInfo.channels)

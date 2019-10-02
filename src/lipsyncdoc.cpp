@@ -136,7 +136,7 @@ void LipsyncPhrase::RepositionWord(LipsyncWord *word)
 	float framesPerPhoneme = 1.0f;
 	if (frameDuration > 0 && phonemeCount > 0)
 	{
-		framesPerPhoneme = (float)frameDuration / (float)phonemeCount;
+        framesPerPhoneme = static_cast<float>(frameDuration) / static_cast<float>(phonemeCount);
 		if (framesPerPhoneme < 1.0f)
 			framesPerPhoneme = 1.0f;
 	}
@@ -145,7 +145,7 @@ void LipsyncPhrase::RepositionWord(LipsyncWord *word)
 	float curFrame = word->fStartFrame;
 	for (std::int32_t i = 0; i < word->fPhonemes.size(); i++)
 	{
-		word->fPhonemes[i]->fFrame = PG_ROUND(curFrame);
+        word->fPhonemes[i]->fFrame = pg_math::round(curFrame);
 		curFrame = curFrame + framesPerPhoneme;
 	}
 	for (std::int32_t i = 0; i < word->fPhonemes.size(); i++)
@@ -337,10 +337,10 @@ void LipsyncVoice::RunBreakdown(QString language, std::int32_t audioDuration)
 		}
 	}
 	// now divide up the total time by phonemes
-	std::int32_t framesPerPhoneme = 1;
+    std::uint32_t framesPerPhoneme = 1;
 	if (audioDuration > 0 && phonemeCount > 0)
-	{
-		framesPerPhoneme = PG_ROUND((float)audioDuration / (float)phonemeCount);
+    {
+        framesPerPhoneme = static_cast<std::uint32_t>((static_cast<float>(audioDuration) / static_cast<float>(phonemeCount)) + 0.5f);
 		if (framesPerPhoneme < 1)
 			framesPerPhoneme = 1;
 	}
@@ -368,7 +368,7 @@ void LipsyncVoice::RunBreakdown(QString language, std::int32_t audioDuration)
 			else
 			{
 				word->fStartFrame = word->fPhonemes.at(0)->fFrame;
-				word->fEndFrame = word->fPhonemes.last()->fFrame + framesPerPhoneme - 1;
+                word->fEndFrame = word->fPhonemes.last()->fFrame + static_cast<std::int32_t>(framesPerPhoneme) - 1;
 			}
 		} // for j
 		phrase->fStartFrame = phrase->fWords[0]->fStartFrame;
@@ -415,7 +415,7 @@ void LipsyncVoice::RepositionPhrase(LipsyncPhrase *phrase, std::int32_t audioDur
 	float framesPerPhoneme = 1.0f;
 	if (frameDuration > 0 && phonemeCount > 0)
 	{
-		framesPerPhoneme = (float)frameDuration / (float)phonemeCount;
+        framesPerPhoneme = static_cast<float>(frameDuration) / static_cast<float>(phonemeCount);
 		if (framesPerPhoneme < 1.0f)
 			framesPerPhoneme = 1.0f;
 	}
@@ -427,19 +427,19 @@ void LipsyncVoice::RepositionPhrase(LipsyncPhrase *phrase, std::int32_t audioDur
 		LipsyncWord *word = phrase->fWords[i];
 		for (std::int32_t j = 0; j < word->fPhonemes.size(); j++)
 		{
-			word->fPhonemes[j]->fFrame = PG_ROUND(curFrame);
+            word->fPhonemes[j]->fFrame = pg_math::round(curFrame);
 			curFrame += framesPerPhoneme;
 		}
 		if (word->fPhonemes.size() == 0) // deal with unknown words
 		{
-			word->fStartFrame = PG_ROUND(curFrame);
+            word->fStartFrame = pg_math::round(curFrame);
 			word->fEndFrame = word->fStartFrame + 3;
 			curFrame += 4.0f;
 		}
 		else
 		{
 			word->fStartFrame = word->fPhonemes[0]->fFrame;
-			word->fEndFrame = word->fPhonemes.last()->fFrame + PG_ROUND(framesPerPhoneme) - 1;
+            word->fEndFrame = word->fPhonemes.last()->fFrame + pg_math::round(framesPerPhoneme) - 1;
 		}
 		phrase->RepositionWord(word);
 	}
@@ -682,8 +682,8 @@ void LipsyncDoc::OpenAudio(const QString &path)
 		fAudioExtractor = new AudioExtractor(path.toUtf8().data());
 		if (fAudioExtractor->IsValid())
 		{
-			real f = fAudioExtractor->Duration() * fFps;
-			fAudioDuration = PG_ROUND(f);
+            real f = fAudioExtractor->Duration() * fFps;
+            fAudioDuration = pg_math::round(f);
 			fMaxAmplitude = 0.001f;
 			real time = 0.0f, sampleDur = 1.0f / 24.0f;
 			while (time < fAudioExtractor->Duration())
@@ -726,7 +726,7 @@ void LipsyncDoc::Save()
 	if (fAudioExtractor && fAudioExtractor->IsValid())
 	{
 		real f = fAudioExtractor->Duration() * fFps;
-		fAudioDuration = PG_ROUND(f);
+        fAudioDuration = pg_math::round(f);
 	}
 
 	QTextStream out(f);
@@ -764,7 +764,7 @@ void LipsyncDoc::SetFps(std::int32_t fps)
 	if (fAudioExtractor && fAudioExtractor->IsValid())
 	{
 		real f = fAudioExtractor->Duration() * fFps;
-		fAudioDuration = PG_ROUND(f);
+        fAudioDuration = pg_math::round(f);
 	}
 }
 
@@ -786,7 +786,7 @@ QString LipsyncDoc::GetVolumePhonemeAtFrame(std::int32_t frame)
 	real amp = fAudioExtractor->GetRMSAmplitude((real)frame / (real)fFps, 1.0f / (real)fFps);
 	amp /= fMaxAmplitude;
 	amp *= 4.0f;
-	std::int32_t volID = PG_ROUND(amp);
+    std::int32_t volID = pg_math::round(amp);
 	volID = PG_CLAMP(volID, 0, 4);
 
 	// new method - use a fixed set of phonemes for this method:

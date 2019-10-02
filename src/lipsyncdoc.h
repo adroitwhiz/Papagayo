@@ -4,6 +4,7 @@
 #include <QMediaPlayer>
 
 #include "audioextractor.h"
+#include "mathfunc.h"
 
 #include <cstdint>
 

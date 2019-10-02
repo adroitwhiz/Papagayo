@@ -128,6 +128,7 @@ INCLUDEPATH += libsndfile_1.0.19
 
 HEADERS += src/mainwindow.h \
     src/lipsyncdoc.h \
+    src/mathfunc.h \
     src/waveformview.h \
     src/audioextractor.h \
     src/mouthview.h \
