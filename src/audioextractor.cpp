@@ -6,15 +6,15 @@ AudioExtractor::AudioExtractor(const char *path, bool reverse)
 {
 	fNumFrames = 0;
 	fNumSamples = 0;
-	fSamples = NULL;
+	fSamples = nullptr;
 	fSourcePath = path;
 
-	if (path == NULL)
+	if (path == nullptr)
 		return;
 	
 	// The sound file might already be in the right format (AIFF or WAV), try and read it. 
-    bool soundRead = ReadSoundFile(path);
-    
+	bool soundRead = ReadSoundFile(path);
+	
 	if (soundRead && reverse)
 	{
 		int32	revI;
@@ -41,14 +41,14 @@ AudioExtractor::~AudioExtractor()
 
 bool AudioExtractor::IsValid() const
 {
-	if (fSamples == NULL)
+	if (fSamples == nullptr)
 		return false;
 	return true;
 }
 
 real AudioExtractor::Duration() const
 {
-	if (fSamples == NULL)
+	if (fSamples == nullptr)
 		return 0.0f;
 
 	return (real)fSndInfo.frames / (real)fSndInfo.samplerate;
@@ -56,7 +56,7 @@ real AudioExtractor::Duration() const
 
 real AudioExtractor::GetAmplitude(real startTime, real duration) const
 {
-	if (fSamples == NULL || duration < 0.0f)
+	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
 	uint32	i, start, end;
@@ -79,7 +79,7 @@ real AudioExtractor::GetAmplitude(real startTime, real duration) const
 
 real AudioExtractor::GetRMSAmplitude(real startTime, real duration) const
 {
-	if (fSamples == NULL || duration < 0.0f)
+	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
 	uint32	i, start, end;
@@ -102,7 +102,7 @@ real AudioExtractor::GetRMSAmplitude(real startTime, real duration) const
 
 real AudioExtractor::GetMaxAmplitude(real startTime, real duration) const
 {
-	if (fSamples == NULL || duration < 0.0f)
+	if (fSamples == nullptr || duration < 0.0f)
 		return 0.0f;
 
 	uint32	i, start, end;
@@ -139,7 +139,7 @@ real *AudioExtractor::Buffer() const
 
 uint32 AudioExtractor::TimeToSample(real time, bool clamped) const
 {
-	if (fSamples == NULL)
+	if (fSamples == nullptr)
 		return 0;
 
 	uint32	sample;
@@ -159,14 +159,14 @@ uint32 AudioExtractor::TimeToSample(real time, bool clamped) const
 
 bool AudioExtractor::ReadSoundFile(const char *soundFilePath)
 {
-    SNDFILE *sndFile = sf_open(soundFilePath, SFM_READ, &fSndInfo);
-    if (!sndFile)
-        return false;
-    
-    if (fSndInfo.frames > MAX_AUDIO_FRAMES)
-        fSndInfo.frames = MAX_AUDIO_FRAMES;
-    fNumSamples = (int32)(fSndInfo.frames * fSndInfo.channels);
-    fSamples = new float[fNumSamples];
+	SNDFILE *sndFile = sf_open(soundFilePath, SFM_READ, &fSndInfo);
+	if (!sndFile)
+		return false;
+	
+	if (fSndInfo.frames > MAX_AUDIO_FRAMES)
+		fSndInfo.frames = MAX_AUDIO_FRAMES;
+	fNumSamples = (int32)(fSndInfo.frames * fSndInfo.channels);
+	fSamples = new float[fNumSamples];
 /*	if (sndFormat == (SF_FORMAT_OGG | SF_FORMAT_VORBIS))
 	{
 		float		*bufPtr = fSamples;
@@ -190,6 +190,6 @@ bool AudioExtractor::ReadSoundFile(const char *soundFilePath)
 	{
 		fNumFrames = sf_readf_float(sndFile, fSamples, fSndInfo.frames);
 	}
-    sf_close(sndFile);
-    return true;
+	sf_close(sndFile);
+	return true;
 }

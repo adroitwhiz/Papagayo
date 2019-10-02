@@ -1,0 +1,86 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/qt5/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/lib64/ccache/clang",
+            "knownCompilers": [
+                {
+                    "path": "/usr/lib64/ccache/clang",
+                    "isC": true
+                },
+                {
+                    "path": "/usr/lib64/ccache/clang++",
+                    "isC": false
+                },
+                {
+                    "path": "/usr/lib64/ccache/gcc",
+                    "isC": true
+                },
+                {
+                    "path": "/usr/lib64/ccache/g++",
+                    "isC": false
+                },
+                {
+                    "path": "/usr/bin/clang",
+                    "isC": true
+                },
+                {
+                    "path": "/usr/bin/clang++",
+                    "isC": false
+                },
+                {
+                    "path": "/usr/bin/gcc",
+                    "isC": true
+                },
+                {
+                    "path": "/usr/bin/g++",
+                    "isC": false
+                },
+                {
+                    "path": "/usr/bin/cpp",
+                    "isC": false
+                },
+                {
+                    "path": "/bin/clang",
+                    "isC": true
+                },
+                {
+                    "path": "/bin/clang++",
+                    "isC": false
+                },
+                {
+                    "path": "/bin/gcc",
+                    "isC": true
+                },
+                {
+                    "path": "/bin/g++",
+                    "isC": false
+                },
+                {
+                    "path": "/bin/cpp",
+                    "isC": false
+                },
+                {
+                    "path": "/usr/lib64/ccache/clang",
+                    "isC": false
+                }
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "compilerArgs": [],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

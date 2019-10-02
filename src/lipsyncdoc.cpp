@@ -490,10 +490,10 @@ LipsyncDoc::LipsyncDoc()
 	fDirty = false;
 	fFps = 24;
 	fAudioDuration = 0;
-	fAudioPlayer = NULL;
-	fAudioExtractor = NULL;
+	fAudioPlayer = nullptr;
+	fAudioExtractor = nullptr;
 	fMaxAmplitude = 1.0f;
-	fCurrentVoice = NULL;
+	fCurrentVoice = nullptr;
 }
 
 LipsyncDoc::~LipsyncDoc()
@@ -502,12 +502,12 @@ LipsyncDoc::~LipsyncDoc()
 	{
 		fAudioPlayer->stop();
 		delete fAudioPlayer;
-		fAudioPlayer = NULL;
+		fAudioPlayer = nullptr;
 	}
 	if (fAudioExtractor)
 	{
 		delete fAudioExtractor;
-		fAudioExtractor = NULL;
+		fAudioExtractor = nullptr;
 	}
 	while (!fVoices.isEmpty())
 		delete fVoices.takeFirst();
@@ -606,16 +606,16 @@ void LipsyncDoc::Open(const QString &path)
 	{
 		fAudioPlayer->stop();
 		delete fAudioPlayer;
-		fAudioPlayer = NULL;
+		fAudioPlayer = nullptr;
 	}
 	if (fAudioExtractor)
 	{
 		delete fAudioExtractor;
-		fAudioExtractor = NULL;
+		fAudioExtractor = nullptr;
 	}
 	while (!fVoices.isEmpty())
 		delete fVoices.takeFirst();
-	fCurrentVoice = NULL;
+	fCurrentVoice = nullptr;
 
 	fPath = path;
 	str = in.readLine(); // discard the header
@@ -659,12 +659,12 @@ void LipsyncDoc::OpenAudio(const QString &path)
 	{
 		fAudioPlayer->stop();
 		delete fAudioPlayer;
-		fAudioPlayer = NULL;
+		fAudioPlayer = nullptr;
 	}
 	if (fAudioExtractor)
 	{
 		delete fAudioExtractor;
-		fAudioExtractor = NULL;
+		fAudioExtractor = nullptr;
 	}
 
 	fAudioPath = path;
@@ -674,7 +674,7 @@ void LipsyncDoc::OpenAudio(const QString &path)
 	if (fAudioPlayer->error())
 	{
 		delete fAudioPlayer;
-		fAudioPlayer = NULL;
+		fAudioPlayer = nullptr;
 	}
 	else
 	{
@@ -697,7 +697,7 @@ void LipsyncDoc::OpenAudio(const QString &path)
 		else
 		{
 			delete fAudioExtractor;
-			fAudioExtractor = NULL;
+			fAudioExtractor = nullptr;
 		}
 	}
 

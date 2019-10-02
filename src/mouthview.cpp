@@ -5,7 +5,7 @@
 MouthView::MouthView(QWidget *parent) :
 	QWidget(parent)
 {
-	fDoc = NULL;
+	fDoc = nullptr;
 	fMouthID = 0;
 	fFrame = 0;
 
@@ -70,7 +70,7 @@ void MouthView::paintEvent(QPaintEvent *event)
 	PG_UNUSED(event);
 
 	QString		phoneme;
-	QImage		*img = NULL;
+	QImage		*img = nullptr;
 	QPainter	dc(this);
 
 	if (fDoc && fDoc->fCurrentVoice)

@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-	fDoc = NULL;
+	fDoc = nullptr;
 	fEnableAutoBreakdown = true;
 	fDefaultFps = 24;
 
@@ -40,7 +40,7 @@ void MainWindow::OpenFile(QString filePath)
 	if (fDoc)
 	{
 		delete fDoc;
-		fDoc = NULL;
+		fDoc = nullptr;
 	}
 
 	fDoc = new LipsyncDoc;
@@ -55,10 +55,10 @@ void MainWindow::OpenFile(QString filePath)
 		fDoc->SetFps(fDefaultFps);
 	}
 
-	if (fDoc->GetAudioPlayer() == NULL)
+	if (fDoc->GetAudioPlayer() == nullptr)
 	{
 		delete fDoc;
-		fDoc = NULL;
+		fDoc = nullptr;
 		QMessageBox::warning(this, tr("Papagayo"),
 							 tr("Error opening audio file."),
 							 QMessageBox::Ok);
@@ -145,7 +145,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 		if (fDoc)
 		{
 			delete fDoc;
-			fDoc = NULL;
+			fDoc = nullptr;
 		}
 		SaveSettings();
 		event->accept();

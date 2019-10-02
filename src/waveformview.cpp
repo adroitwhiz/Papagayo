@@ -15,10 +15,10 @@ WaveformView::WaveformView(QWidget *parent) :
 //	setAttribute(Qt::WA_StaticContents);
 	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);// QSizePolicy::Fixed ?
 
-	fScrollArea = NULL;
-	fDoc = NULL;
+	fScrollArea = nullptr;
+	fDoc = nullptr;
 	fNumSamples = 0;
-	fAmp = NULL;
+	fAmp = nullptr;
 	fDragging = false;
 	fDoubleClick = false;
 	fCurFrame = 0;
@@ -32,9 +32,9 @@ WaveformView::WaveformView(QWidget *parent) :
 	fPhraseBottom = 16;
 	fWordBottom = 32;
 	fPhonemeTop = 128;
-	fSelectedPhrase = NULL;
-	fSelectedWord = NULL;
-	fSelectedPhoneme = NULL;
+	fSelectedPhrase = nullptr;
+	fSelectedWord = nullptr;
+	fSelectedPhoneme = nullptr;
 }
 
 WaveformView::~WaveformView()
@@ -61,7 +61,7 @@ void WaveformView::SetScrollArea(QScrollArea *scrollArea)
 
 void WaveformView::SetDocument(LipsyncDoc *doc)
 {
-	if (fDoc == NULL && doc)
+	if (fDoc == nullptr && doc)
 	{
 		fSampleWidth = DEFAULT_SAMPLE_WIDTH;
 		fSamplesPerFrame = DEFAULT_SAMPLES_PER_FRAME;
@@ -73,7 +73,7 @@ void WaveformView::SetDocument(LipsyncDoc *doc)
 	if (fAmp)
 	{
 		delete [] fAmp;
-		fAmp = NULL;
+		fAmp = nullptr;
 	}
 	if (fDoc && fDoc->GetAudioExtractor())
 	{
@@ -245,9 +245,9 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 	fOldFrame = frame;
 	fDragging = false;
 	fDraggingEnd = -1;
-	fSelectedPhrase = fParentPhrase = NULL;
-	fSelectedWord = fParentWord = NULL;
-	fSelectedPhoneme = NULL;
+	fSelectedPhrase = fParentPhrase = nullptr;
+	fSelectedWord = fParentWord = nullptr;
+	fSelectedPhoneme = nullptr;
 
 	if (fDoc && fDoc->GetAudioPlayer())
 	{
@@ -295,8 +295,8 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			// now, test if the click was within the vertical range of one of these objects
 			if (fSelectedPhrase && mouseY >= fSelectedPhrase->fTop && mouseY <= fSelectedPhrase->fBottom)
 			{
-				fSelectedWord = NULL;
-				fSelectedPhoneme = NULL;
+				fSelectedWord = nullptr;
+				fSelectedPhoneme = nullptr;
 				fDraggingEnd = 0; // beginning of phrase
 				frameDist = frame - fSelectedPhrase->fStartFrame;
 				if ((fSelectedPhrase->fEndFrame - frame) < frameDist)
@@ -312,8 +312,8 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			}
 			else if (fSelectedWord && mouseY >= fSelectedWord->fTop && mouseY <= fSelectedWord->fBottom)
 			{
-				fSelectedPhrase = NULL;
-				fSelectedPhoneme = NULL;
+				fSelectedPhrase = nullptr;
+				fSelectedPhoneme = nullptr;
 				fDraggingEnd = 0; // beginning of word
 				frameDist = frame - fSelectedWord->fStartFrame;
 				if ((fSelectedWord->fEndFrame - frame) < frameDist)
@@ -329,18 +329,18 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 			}
 			else if (fSelectedPhoneme && mouseY >= fSelectedPhoneme->fTop && mouseY <= fSelectedPhoneme->fBottom)
 			{
-				fSelectedPhrase = NULL;
-				fSelectedWord = NULL;
+				fSelectedPhrase = nullptr;
+				fSelectedWord = nullptr;
 				fDraggingEnd = 0;
 			}
 			else
 			{
-				fSelectedPhrase = fParentPhrase = NULL;
-				fSelectedWord = fParentWord = NULL;
-				fSelectedPhoneme = NULL;
+				fSelectedPhrase = fParentPhrase = nullptr;
+				fSelectedWord = fParentWord = nullptr;
+				fSelectedPhoneme = nullptr;
 			}
 
-			if (fSelectedPhrase == NULL && fSelectedWord == NULL && fSelectedPhoneme == NULL)
+			if (fSelectedPhrase == nullptr && fSelectedWord == nullptr && fSelectedPhoneme == nullptr)
 			{
 				mouseMoveEvent(event);
 			}
@@ -384,9 +384,9 @@ void WaveformView::mousePressEvent(QMouseEvent *event)
 				}
 				fDragging = false;
 				fDraggingEnd = -1;
-				fSelectedPhrase = NULL;
-				fSelectedWord = NULL;
-				fSelectedPhoneme = NULL;
+				fSelectedPhrase = nullptr;
+				fSelectedWord = nullptr;
+				fSelectedPhoneme = nullptr;
 			}
 		}
 	}
@@ -552,9 +552,9 @@ void WaveformView::mouseReleaseEvent(QMouseEvent *event)
 	fCurFrame = -1;
 	fDragging = false;
 	fDraggingEnd = -1;
-	fSelectedPhrase = NULL;
-	fSelectedWord = NULL;
-	fSelectedPhoneme = NULL;
+	fSelectedPhrase = nullptr;
+	fSelectedWord = nullptr;
+	fSelectedPhoneme = nullptr;
 	emit(frameChanged(0));
 	update();
 }
